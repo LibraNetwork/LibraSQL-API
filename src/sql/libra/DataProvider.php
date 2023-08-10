@@ -6,6 +6,15 @@ abstract class DataProvider{
 
     private $database = null;
 
+    private const DATABASE_LIST = [];
+
+    /**
+     * @return array
+     */
+    public static function getDatabaseList(): array{
+        return self::DATABASE_LIST;
+    }
+
     /**
      * @param $database
      * @return void
@@ -23,6 +32,7 @@ abstract class DataProvider{
         if ($this->database == null){
             return false;
         }
+        self::DATABASE_LIST[] = $table;
         return $this->database->exec("CREATE TABLE IF NOT EXISTS " . $table . "(" . implode(", ", $param) . ")");
     }
 
